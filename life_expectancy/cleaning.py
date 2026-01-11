@@ -19,12 +19,11 @@ def clean_data(country):
     first_column = df.columns[0]
     df[['unit', 'sex', 'age', 'region']] = df[first_column].str.split(',', expand=True)
 
-    # Remove the original first column
-    df = df.drop(columns=first_column)
-
     # Transform data from wide format to long format
+    year_columns = df.columns[1:-4]  # seleciona apenas as colunas de ano
     df_long = df.melt(
         id_vars=['unit','sex','age','region'],  # columns to keep fixed
+        value_vars=year_columns,
         var_name='year',                        # new column with year
         value_name='value'                      # new column with life expectancy
     )
@@ -34,10 +33,12 @@ def clean_data(country):
     df_long['year'] = df_long['year'].astype(int)
 
     # Remove spaces from value column
-    df_long['value'] = df_long['value'].astype(str).str.strip()
-
-    # Replace ':' for NaN
-    df_long['value'] = df_long['value'].replace(':', pd.NA)
+    df_long['value'] = (
+        df_long['value']
+        .astype(str)
+        .str.strip()
+        .str.replace(r'[^0-9.]', '', regex=True)
+    )
 
     # Convert value to float
     df_long['value'] = pd.to_numeric(df_long['value'], errors='coerce')
@@ -46,10 +47,10 @@ def clean_data(country):
     df_long = df_long.dropna(subset=['value'])
 
     # Keeps only data from PT (Portugal)
-    df_pt = df_long[df_long['region'] == country.strip()]
+    df_pt = df_long[df_long['region'] == country]
 
-    # Save the final processed file, containing only PT data
-    output_path = Path(__file__).parent / "data" / "pt_life_expectancy.csv"
+    # Save the final processed file, containing only country data
+    output_path = Path(__file__).parent / "data" / f"{country.lower()}_life_expectancy.csv"
     print(f"Output CSV path: {output_path}")
     df_pt.to_csv(output_path, index=False) # Without the index column
 
