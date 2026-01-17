@@ -11,7 +11,7 @@ def load_data(data_path: Path) -> pd.DataFrame:
 def clean_data(df: pd.DataFrame, country: str) -> pd.DataFrame:
     """Clean life expectancy data and filter by country (PT by default)"""
 
-    # Slipt the first column into 4 new columns
+    # Slipt the first column into 4 new columns data
     first_column = df.columns[0]
     df[['unit', 'sex', 'age', 'region']] = df[first_column].str.split(',', expand=True)
 
