@@ -4,7 +4,6 @@ import pandas as pd
 from life_expectancy.cleaning import load_data, clean_data, save_data, main
 
 OUTPUT_FILE = Path(__file__).parent.parent / "data" / "pt_life_expectancy.csv"
-# OUTPUT_FILE = Path(__file__).parent.parent / "data" 
 
 def test_clean_data(pt_life_expectancy_expected):
     """Run the clean_data function and compare the output to the expected output"""
