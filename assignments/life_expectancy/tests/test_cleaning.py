@@ -2,14 +2,15 @@
 from pathlib import Path
 import pandas as pd
 from life_expectancy.cleaning import load_data, clean_data, main
+from . import OUTPUT_DIR
 
-OUTPUT_FILE = Path(__file__).parent.parent / "data" / "pt_life_expectancy.csv"
+# OUTPUT_FILE = Path(__file__).parent.parent / "data" / "pt_life_expectancy.csv"
+OUTPUT_FILE = OUTPUT_DIR / "pt_life_expectancy_expected.csv"
 
-def test_clean_data(pt_life_expectancy_expected):
+def test_clean_data(pt_life_expectancy_expected, eu_life_expectancy_raw):
     """Run the clean_data function and compare the output to the expected output"""
-    raw_file = Path(__file__).parent.parent / "data" / "eu_life_expectancy_raw.tsv"
-    df = load_data(raw_file)
-    df_cleaned = clean_data(df, country="PT")
+    # df = load_data(OUTPUT_FILE)
+    df_cleaned = clean_data(eu_life_expectancy_raw, country="PT")
     pd.testing.assert_frame_equal(df_cleaned, pt_life_expectancy_expected)
 
 def test_main_runs():
