@@ -2,6 +2,8 @@
 from pathlib import Path
 import argparse
 import pandas as pd
+from life_expectancy.region import Region
+
 
 # Define constant base path for loading and saving data functions
 DATA_DIR = Path(__file__).parent / "data"
@@ -11,8 +13,8 @@ def load_data(data_path: Path = DATA_DIR / "eu_life_expectancy_raw.tsv") -> pd.D
     # Get path to the data file
     return pd.read_csv(data_path, sep="\t")
 
-def clean_data(df: pd.DataFrame, country: str) -> pd.DataFrame:
-    """Clean life expectancy data and filter by country (PT by default)"""
+def clean_data(df: pd.DataFrame, country: Region) -> pd.DataFrame:
+    """Clean life expectancy data and filter by Region"""
 
     # Slipt the first column into 4 new columns data
     first_column = df.columns[0]
@@ -46,14 +48,14 @@ def clean_data(df: pd.DataFrame, country: str) -> pd.DataFrame:
     df_long = df_long.dropna(subset=['value'])
 
     # Keeps only data from the country
-    df_country = df_long[df_long['region'] == country]
+    df_country = df_long[df_long['region'] == country.value]
     return df_country.reset_index(drop=True)
 
-def save_data(df_country: pd.DataFrame, country: str) -> None:
+def save_data(df_country: pd.DataFrame, country: Region) -> None:
     """Save cleaned data for the specified country to a CSV file"""
-    df_country.to_csv(DATA_DIR / f"{country.lower()}_life_expectancy.csv", index=False)
+    df_country.to_csv(DATA_DIR / f"{country.value.lower()}_life_expectancy.csv", index=False)
 
-def main(country: str = "PT"):
+def main(country: Region = Region.PT):
     """Main pipeline to load, clean and save life expectancy data"""    
     # Load, clean and save data
     df = load_data()
@@ -65,4 +67,4 @@ if __name__ == "__main__": # pragma: no cover
     parser = argparse.ArgumentParser()
     parser.add_argument("country", nargs="?", default="PT")
     args = parser.parse_args()
-    main(country=args.country)
+    main(country=Region(args.country))
