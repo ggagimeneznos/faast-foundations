@@ -7,7 +7,7 @@ since we are learning, this is a special case.
 Once you have ensured that the package and its dependencies are installed,
 feel free to delete this file.
 """
-from pkg_resources import DistributionNotFound, get_distribution
+from pkg_resources import DistributionNotFound, get_distribution # pylint: disable=import-error
 
 import toml
 import pytest
