@@ -1,3 +1,7 @@
+# Assignment 1 Life Expectancy
+
+[![CI](https://github.com/ggagimeneznos/faast-foundations/actions/workflows/ci.yml/badge.svg)](https://github.com/ggagimeneznos/faast-foundations/actions/workflows/ci.yml)
+
 # FAAST Advance Foundations
 
 ![FAAST logo](/images/FAAST_preto.png)
