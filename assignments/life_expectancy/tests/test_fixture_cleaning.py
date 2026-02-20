@@ -5,8 +5,9 @@ from life_expectancy.cleaning import clean_data
 from life_expectancy.region import Region
 
 COUNTRY = Region.PT
-INPUT_FILE = Path(__file__).parent.parent / "tests" / "fixtures" / "eu_life_expectancy_raw.tsv"
-OUTPUT_FILE = Path(__file__).parent.parent / "tests" / "fixtures" / f"{COUNTRY.value.lower()}_life_expectancy_expected.csv"
+BASE_FILE = Path(__file__).parent.parent / "tests" / "fixtures"
+INPUT_FILE = BASE_FILE / "eu_life_expectancy_raw.tsv"
+OUTPUT_FILE = BASE_FILE / f"{COUNTRY.value.lower()}_life_expectancy_expected.csv"
 
 def test_clean_data_fixture():
     """Run the clean_data function with expected output"""

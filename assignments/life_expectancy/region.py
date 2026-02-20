@@ -3,6 +3,7 @@ from enum import Enum
 
 
 class Region(Enum):
+    """Tests for region data"""
     AL = "AL"
     AM = "AM"
     AT = "AT"
@@ -63,6 +64,9 @@ class Region(Enum):
     @classmethod
     def actual_countries(cls) -> list["Region"]:
         """Return a list of all real countries, excluding aggregated regions"""
-        exclude = {"DE_TOT", "EA18", "EA19", "EEA30_2007", "EEA31", "EFTA", "EU27_2007", "EU27_2020", "EU28"}
+        exclude = {"DE_TOT", "EA18",
+        "EA19", "EEA30_2007", 
+        "EEA31", "EFTA", 
+        "EU27_2007", "EU27_2020", 
+        "EU28"}
         return [r for r in cls if r.name not in exclude]
-    

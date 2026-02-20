@@ -1,9 +1,8 @@
 """Tests for the cleaning module"""
-from pathlib import Path
 import pandas as pd
-from life_expectancy.cleaning import load_data, clean_data, main
-from . import OUTPUT_DIR
+from life_expectancy.cleaning import clean_data, main
 from life_expectancy.region import Region
+from . import OUTPUT_DIR
 
 # OUTPUT_FILE = Path(__file__).parent.parent / "data" / "pt_life_expectancy.csv"
 OUTPUT_FILE = OUTPUT_DIR / "pt_life_expectancy_expected.csv"

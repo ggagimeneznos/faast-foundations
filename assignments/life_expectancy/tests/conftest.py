@@ -1,10 +1,11 @@
 """Pytest configuration file"""
+from pathlib import Path
 import pandas as pd
 import pytest
-from pathlib import Path
+
 
 # from . import FIXTURES_DIR, OUTPUT_DIR
-FIXTURES_DIR = Path(__file__).parent / "fixtures" 
+FIXTURES_DIR = Path(__file__).parent / "fixtures"
 OUTPUT_DIR = Path(__file__).parent / "fixtures"
 
 @pytest.fixture(scope="session")

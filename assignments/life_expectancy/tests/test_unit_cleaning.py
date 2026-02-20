@@ -1,5 +1,4 @@
 """Unit tests for cleaning module"""
-from pathlib import Path
 from unittest.mock import patch
 import pandas as pd
 from life_expectancy.cleaning import load_data, clean_data, save_data, main
@@ -29,12 +28,16 @@ def test_save_data_calls_to_csv(pt_life_expectancy_expected):
     with patch.object(pd.DataFrame, "to_csv") as mock_to_csv:
         save_data(pt_life_expectancy_expected, country=Region.PT)
         mock_to_csv.assert_called_once()
-    
+
 # Function to test actual_countries method of Region
 def test_actual_countries():
     """Test that actual_countries returns only real countries"""
     countries = Region.actual_countries()
-    assert all(r.name not in {"DE_TOT", "EA18", "EA19", "EEA30_2007", "EEA31", "EFTA", "EU27_2007", "EU27_2020", "EU28"} for r in countries)
+    assert all(r.name not in {"DE_TOT",
+                              "EA18", "EA19", 
+                              "EEA30_2007", "EEA31", 
+                              "EFTA", "EU27_2007", 
+                              "EU27_2020", "EU28"} for r in countries)
     assert Region.PT in countries
     assert Region.FR in countries
     assert Region.ES in countries
